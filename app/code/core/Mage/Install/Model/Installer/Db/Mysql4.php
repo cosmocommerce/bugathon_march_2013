@@ -58,8 +58,11 @@ class Mage_Install_Model_Installer_Db_Mysql4 extends Mage_Install_Model_Installe
      */
     public function supportEngine()
     {
+return true;
         $variables  = $this->_getConnection()
-            ->fetchPairs('SHOW VARIABLES');
-        return (!isset($variables['have_innodb']) || $variables['have_innodb'] != 'YES') ? false : true;
+            ->fetchPairs('SHOW ENGINES');
+print_r($variables);
+exit();
+	return (isset($engines['InnoDB']) && $engines['InnoDB'] != 'NO' && $engines['InnoDB'] != 'DISABLED');
     }
 }
